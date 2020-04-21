@@ -1,0 +1,21 @@
+{
+  "lib/cjs.js": {
+    "bundled": 30459,
+    "minified": 13306,
+    "gzipped": 3530
+  },
+  "lib/ejs.js": {
+    "bundled": 29958,
+    "minified": 12843,
+    "gzipped": 3458,
+    "treeshaked": {
+      "rollup": {
+        "code": 170,
+        "import_statements": 81
+      },
+      "webpack": {
+        "code": 1213
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "demo",
+  "private": true,
+  "@rollingversions/ignore": true,
+  "version": "0.0.0",
+  "description": "Lightweight forms for React",
+  "main": "lib/cjs.js",
+  "module": "lib/ejs.js",
+  "types": "lib/index.d.ts",
+  "repository": "git@github.com:ForbesLindesay/hooked-on-forms.git",
+  "author": "Forbes Lindesay <forbes@lindesay.co.uk>",
+  "license": "MIT",
+  "scripts": {
+    "postbuild": "rimraf lib/**/__tests__",
+    "lint": "tslint './src/**/*.{ts,tsx}' -t verbose -p .",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
+    "hooked-on-forms": "^0.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@forbeslindesay/tsconfig": "^2.0.0",
+    "rimraf": "^3.0.0",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
+  }
+}

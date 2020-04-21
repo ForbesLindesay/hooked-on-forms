@@ -1,0 +1,35 @@
+{
+  "name": "hooked-on-forms",
+  "version": "0.0.0",
+  "description": "Lightweight forms for React",
+  "main": "lib/cjs.js",
+  "module": "lib/ejs.js",
+  "types": "lib/index.d.ts",
+  "repository": "git@github.com:ForbesLindesay/hooked-on-forms.git",
+  "author": "Forbes Lindesay <forbes@lindesay.co.uk>",
+  "license": "MIT",
+  "scripts": {
+    "postbuild": "tsc && rimraf lib/**/__tests__",
+    "lint": "tslint './src/**/*.{ts,tsx}' -t verbose -p .",
+    "build": "rollup -c",
+    "typecheck": "tsc --watch"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "*"
+  },
+  "devDependencies": {
+    "@ampproject/rollup-plugin-closure-compiler": "^0.25.2",
+    "@forbeslindesay/tsconfig": "^2.0.0",
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rimraf": "^3.0.0",
+    "rollup": "^2.6.1",
+    "rollup-plugin-size-snapshot": "^0.11.0",
+    "rollup-plugin-typescript2": "^0.27.0",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
+  }
+}

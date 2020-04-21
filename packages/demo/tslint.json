@@ -1,0 +1,6 @@
+{
+  "extends": ["@forbeslindesay/tsconfig/tslint"],
+  "linterOptions": {
+    "exclude": ["coverage/", "dist/", "**/node_modules/**"]
+  }
+}
