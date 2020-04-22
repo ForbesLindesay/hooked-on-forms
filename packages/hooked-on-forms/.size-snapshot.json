@@ -1,20 +1,20 @@
 {
   "lib/cjs.js": {
-    "bundled": 30459,
-    "minified": 13306,
-    "gzipped": 3530
+    "bundled": 33250,
+    "minified": 14656,
+    "gzipped": 3800
   },
   "lib/ejs.js": {
-    "bundled": 29958,
-    "minified": 12843,
-    "gzipped": 3458,
+    "bundled": 32641,
+    "minified": 14090,
+    "gzipped": 3723,
     "treeshaked": {
       "rollup": {
-        "code": 170,
+        "code": 176,
         "import_statements": 81
       },
       "webpack": {
-        "code": 1213
+        "code": 1739
       }
     }
   }

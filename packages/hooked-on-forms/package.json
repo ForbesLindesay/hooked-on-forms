@@ -1,7 +1,7 @@
 {
   "name": "hooked-on-forms",
   "version": "0.0.0",
-  "description": "Lightweight forms for React",
+  "description": "Lightweight forms library for React",
   "main": "lib/cjs.js",
   "module": "lib/ejs.js",
   "types": "lib/index.d.ts",

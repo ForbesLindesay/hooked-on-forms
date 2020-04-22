@@ -1,0 +1,12 @@
+/* purgecss start ignore */
+@tailwind base;
+@tailwind components;
+/* purgecss end ignore */
+
+@tailwind utilities;
+
+/* purgecss start ignore */
+
+.form-input:focus-within {
+  @apply outline-none shadow-outline border-blue-200;
+}

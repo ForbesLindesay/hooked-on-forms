@@ -22,6 +22,8 @@ export {
   useIsValidating,
   useTouched,
   useDirty,
+  useOnFocus,
+  useOnBlur,
 } from './hooks/field';
 export {
   withLength,
@@ -44,6 +46,10 @@ export function fieldList<TElement extends IField<any, any, any>>(
   return new FieldList(element);
 }
 
+const SubmittingContext = React.createContext(false);
+export function useSubmitting() {
+  return React.useContext(SubmittingContext);
+}
 export function FormProvider<TRaw, TValidated, TError>({
   children,
   field,
@@ -53,7 +59,7 @@ export function FormProvider<TRaw, TValidated, TError>({
   children: (props: RenderProps) => React.ReactNode;
   field: IField<TRaw, TValidated, TError>;
   initialValue: () => TRaw;
-  onSubmit: (value: TValidated) => Promise<void>;
+  onSubmit: (value: TValidated) => void | Promise<void>;
 }) {
   const [submitting, setSubmitting] = React.useState(false);
   const [rootStore] = React.useState(() =>
@@ -99,20 +105,22 @@ export function FormProvider<TRaw, TValidated, TError>({
         }
       }
     },
-    [onSubmit, rootStore],
+    [submitting, onSubmit, rootStore],
   );
   return (
-    <Provider value={rootStore.context}>
-      <FormRenderer
-        touched={touched}
-        valid={valid}
-        dirty={dirty}
-        submitting={submitting}
-        handleSubmit={handleSubmit}
-      >
-        {children}
-      </FormRenderer>
-    </Provider>
+    <SubmittingContext.Provider value={submitting}>
+      <Provider value={rootStore.context}>
+        <FormRenderer
+          touched={touched}
+          valid={valid}
+          dirty={dirty}
+          submitting={submitting}
+          handleSubmit={handleSubmit}
+        >
+          {children}
+        </FormRenderer>
+      </Provider>
+    </SubmittingContext.Provider>
   );
 }
 

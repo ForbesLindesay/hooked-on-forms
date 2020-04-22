@@ -14,12 +14,20 @@ import IStore, {
 } from './IStore';
 import Context from '../Context';
 import IValidatorStore from '../validators/IValidatorStore';
-import {fireBatch} from '../SubscriptionHandler';
+import SubscriptionHandler, {
+  fireBatch,
+  createSubscriptionHandler,
+  fire,
+} from '../SubscriptionHandler';
 
 export default interface SingleFieldStore<TRaw, TValidated, TError>
   extends IStore<TRaw, TValidated, TError> {
   setRawValue(value: TRaw | ((oldValue: TRaw) => TRaw)): void;
   setRawValueFromEvent(e: {target: {value: TRaw}}): void;
+  focus(): void;
+  blur(): void;
+  focusedSubscription: SubscriptionHandler;
+  getFocused(): boolean;
 }
 export function createSingleFieldStore<TRaw, TValidated, TError>(
   initialValue: TRaw,
@@ -27,7 +35,9 @@ export function createSingleFieldStore<TRaw, TValidated, TError>(
   context: Context,
 ): SingleFieldStore<TRaw, TValidated, TError> {
   const subscriptions = createStoreSubscriptionHandlers();
+  const focusedSubscription = createSubscriptionHandler();
   let touched = false;
+  let focused = false;
   let dirty = false;
 
   let rawValue = initialValue;
@@ -81,6 +91,26 @@ export function createSingleFieldStore<TRaw, TValidated, TError>(
     },
     getDirty() {
       return dirty;
+    },
+
+    focusedSubscription,
+    getFocused() {
+      return focused;
+    },
+
+    focus() {
+      focused = true;
+      fire(focusedSubscription);
+    },
+    blur() {
+      fireBatch(() => {
+        if (!touched) {
+          touched = true;
+          fireTouched(subscriptions);
+        }
+        focused = false;
+        fire(focusedSubscription);
+      });
     },
   };
 

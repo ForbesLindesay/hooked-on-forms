@@ -1,5 +1,5 @@
 import {sizeSnapshot} from 'rollup-plugin-size-snapshot';
-import compiler from '@ampproject/rollup-plugin-closure-compiler';
+// import compiler from '@ampproject/rollup-plugin-closure-compiler';
 import typescript from 'rollup-plugin-typescript2';
 import pkg from './package.json';
 
@@ -21,12 +21,10 @@ export default {
   ],
   plugins: [
     sizeSnapshot(),
-    compiler({
-      assume_function_wrapper: true,
-      formatting: 'PRETTY_PRINT',
-      // compilation_level: 'advanced',
-    }),
-    // tscc(),
+    // compiler({
+    //   assume_function_wrapper: true,
+    //   formatting: 'PRETTY_PRINT',
+    // }),
     typescript({
       typescript: require('typescript'),
     }),

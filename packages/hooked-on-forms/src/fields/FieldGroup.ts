@@ -54,7 +54,7 @@ export default class FieldGroup<
     const childContext = createFormContext(context);
     const results: any = {};
     for (const {name, field} of this._fields) {
-      results[name] = addField(childContext, field, initialValue);
+      results[name] = addField(childContext, field, initialValue[name]);
     }
     return (createFieldGroupStore<ExtractStoreFromFields<TFields>>(
       results,

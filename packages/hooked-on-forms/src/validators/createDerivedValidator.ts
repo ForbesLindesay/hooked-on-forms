@@ -1,6 +1,6 @@
 import IValidator from './IValidator';
-import {Maybe} from '../Maybe';
-import CancellationToken from '../CancellationToken';
+import {Maybe, cancelled, Ok} from '../Maybe';
+import CancellationToken, {isCancelled} from '../CancellationToken';
 import isPromise from '../isPromise';
 import {
   createSubscriptionHandler,
@@ -11,6 +11,26 @@ import IValidatorStore from './IValidatorStore';
 import {withContext, DependencyKey} from '../hooks/validation';
 import IStore from '../stores/IStore';
 
+export default function createDerivedValidator<TRaw, TInput, TValid, TError>(
+  parentValidator: IValidator<TRaw, TInput, TError>,
+  fn: (
+    value: TInput,
+    token: CancellationToken,
+  ) => Ok<TValid> | Promise<Ok<TValid>>,
+): IValidator<TRaw, TValid, TError>;
+export default function createDerivedValidator<
+  TRaw,
+  TInput,
+  TValid,
+  TError,
+  SError
+>(
+  parentValidator: IValidator<TRaw, TInput, TError>,
+  fn: (
+    value: TInput,
+    token: CancellationToken,
+  ) => Maybe<TValid, SError> | Promise<Maybe<TValid, SError>>,
+): IValidator<TRaw, TValid, TError | SError>;
 export default function createDerivedValidator<
   TRaw,
   TInput,
@@ -67,7 +87,11 @@ export default function createDerivedValidator<
             onDependency: (store, key) => {
               dependencies.push({store, key});
             },
-            fire: () => fire(subscribers),
+            fire: () => {
+              // clear cache when a dependency changes
+              lastOutput = undefined;
+              fire(subscribers);
+            },
           },
           () => fn(value, token),
         );
@@ -96,6 +120,7 @@ export default function createDerivedValidator<
             return lastOutput;
           }
 
+          if (isCancelled(token)) return cancelled();
           const result = validateInner(value, token);
           lastInput = value;
           lastOutput = result;
