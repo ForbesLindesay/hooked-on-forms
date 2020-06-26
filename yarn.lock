@@ -1962,10 +1962,10 @@
     mini-svg-data-uri "^1.0.3"
     traverse "^0.6.6"
 
-"@tailwindcss/ui@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/ui/-/ui-0.2.0.tgz#897a88b4d7542b701928e7283b68b034e61cced5"
-  integrity sha512-r9bxAW6pdOMkmfCc2ZOfn2iHmeScz322r3mGiG4ZTF8TDDWCL7YVldKebsBvFFrMxmXIJY9xynpX7i9+cxPO/Q==
+"@tailwindcss/ui@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/ui/-/ui-0.3.0.tgz#846e489c61bdeb60bdd4e2c32033db770ad8d429"
+  integrity sha512-LucyddG60/XAGN7aau+Jn84dsl2BFMZya7o/rGVKSXBVXUv+9SoaGmkbPdl0G3kkpcfQrGndDPSkdUgVTS0y8g==
   dependencies:
     "@tailwindcss/custom-forms" "^0.2.1"
     hex-rgb "^4.1.0"
